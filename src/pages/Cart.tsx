@@ -1,18 +1,16 @@
-type PropsCart = {
-  productsList: any[];
+type CartProps = {
+  cartList: any[];
 };
 
-function Cart({ productsList }: PropsCart) {
+function Cart({ cartList }: CartProps) {
   return (
     <>
       <h1>Carrinho de Compras</h1>
-      {productsList.length > 0 ? (
+      {cartList.length > 0 ? (
         // renderizar os itens da lista aqui dentro
         <div>Products exist</div>
       ) : (
-        <p data-testid="shopping-cart-empty-message">
-          Seu carrinho está vazio
-        </p>
+        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       )}
     </>
   );
