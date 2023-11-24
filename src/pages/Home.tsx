@@ -6,7 +6,6 @@ function Home() {
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    console.log(search);
   };
 
   return (
