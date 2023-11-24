@@ -1,15 +1,15 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
 
-function Home() {
-  const [search, setSearch] = useState('');
-  const [productsList, setProductsList] = useState([]);
+type PropsHome = {
+  productsList: any[];
+  changeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+};
 
-  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
-  };
-
+function Home({ productsList, changeHandler }: PropsHome) {
   return (
     <>
+      <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
       <input type="text" onChange={ changeHandler } />
       {productsList.length > 0 ? (
         // renderizar os itens da lista aqui dentro
