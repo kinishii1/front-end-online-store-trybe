@@ -1,3 +1,6 @@
+import { ChangeEvent, useState } from 'react';
+import { Link } from 'react-router-dom';
+=======
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -63,6 +66,16 @@ function Home() {
 
   return (
     <>
+      <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
+      <input type="text" onChange={ changeHandler } />
+      {productsList.length > 0 ? (
+        // renderizar os itens da lista aqui dentro
+        <div>Products exist</div>
+      ) : (
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
+=======
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
         <input
