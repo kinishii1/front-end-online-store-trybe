@@ -1,12 +1,67 @@
 import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
+=======
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+
+// Tipo para os objetos de categoria
+interface Category {
+  id: string;
+  name: string;
+}
 
 function Home() {
   const [search, setSearch] = useState('');
-  const [productsList, setProductsList] = useState([]);
+  const [productsList, setProductsList] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [searched, setSearched] = useState<boolean>(false);
 
-  const changeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const categoriesData: Category[] = await getCategories();
+        setCategories(categoriesData);
+      } catch (error) {
+        console.error('Erro ao buscar categorias:', error);
+      }
+    }
+    fetchCategories();
+  }, []);
+
+  const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+  };
+
+  const handleCategoryClick = async (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setSearched(false);
+    try {
+      const searchData = await getProductsFromCategoryAndQuery(categoryId, search);
+      setProductsList(searchData.results);
+    } catch (error) {
+      console.error('Erro ao buscar produtos por categoria:', error);
+      setProductsList([]);
+    }
+  };
+
+  const handleSearch = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const data = await getProductsFromCategoryAndQuery(selectedCategory, search);
+
+      if (data.results.length === 0) {
+        setProductsList([]);
+      } else {
+        setProductsList(data.results);
+      }
+      setSearched(true);
+    } catch (error) {
+      console.error('Erro ao buscar produtos por texto', error);
+      setProductsList([]);
+      setSearched(false);
+    }
   };
 
   return (
@@ -20,6 +75,64 @@ function Home() {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+=======
+      <h1>Lista de Produtos</h1>
+      <form onSubmit={ handleSearch }>
+        <input
+          type="text"
+          onChange={ handleSearchInput }
+          placeholder="Digite o produto desejado..."
+          value={ search }
+          data-testid="query-input"
+        />
+        {' '}
+        {categories.length > 0 ? (
+          categories.map((category, i) => (
+            <div key={ category.id }>
+              <input
+                type="radio"
+                id={ `category-${i}` }
+                name="category"
+                value={ category.id }
+                checked={ selectedCategory === category.id }
+                onChange={ () => handleCategoryClick(category.id) }
+                data-testid="category"
+              />
+              <label htmlFor={ `category-${i}` }>
+                {category.name}
+              </label>
+            </div>
+          ))
+        ) : (
+          <p data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
+        )}
+        <button data-testid="query-button" type="submit">
+          Pesquisa
+        </button>
+      </form>
+      {searched && (
+        <div>
+          {productsList.length > 0 ? (
+            <ul>
+              {productsList.map((product: any) => (
+                <li
+                  key={ product.id }
+                  data-testid="product"
+                >
+                  {product.title}
+
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p data-testid="home-initial-message">
+              {search.trim() !== '' ? 'Nenhum produto foi encontrado.'
+                : 'Digite algum termo de pesquisa ou escolha uma categoria.'}
+            </p>
+          )}
+        </div>
       )}
     </>
   );
