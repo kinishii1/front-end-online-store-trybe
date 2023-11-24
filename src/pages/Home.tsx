@@ -1,8 +1,9 @@
-import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-=======
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import {
+  getCategories,
+  getProductsFromCategoryAndQuery,
+} from '../services/api';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -37,7 +38,10 @@ function Home() {
     setSelectedCategory(categoryId);
     setSearched(false);
     try {
-      const searchData = await getProductsFromCategoryAndQuery(categoryId, search);
+      const searchData = await getProductsFromCategoryAndQuery(
+        categoryId,
+        search,
+      );
       setProductsList(searchData.results);
     } catch (error) {
       console.error('Erro ao buscar produtos por categoria:', error);
@@ -49,7 +53,10 @@ function Home() {
     event.preventDefault();
 
     try {
-      const data = await getProductsFromCategoryAndQuery(selectedCategory, search);
+      const data = await getProductsFromCategoryAndQuery(
+        selectedCategory,
+        search,
+      );
 
       if (data.results.length === 0) {
         setProductsList([]);
@@ -66,16 +73,10 @@ function Home() {
 
   return (
     <>
-      <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
-      <input type="text" onChange={ changeHandler } />
-      {productsList.length > 0 ? (
-        // renderizar os itens da lista aqui dentro
-        <div>Products exist</div>
-      ) : (
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-=======
+      <Link data-testid="shopping-cart-button" to="/cart">
+        Carrinho
+      </Link>
+      <input type="text" onChange={ handleSearchInput } />
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
         <input
@@ -98,9 +99,7 @@ function Home() {
                 onChange={ () => handleCategoryClick(category.id) }
                 data-testid="category"
               />
-              <label htmlFor={ `category-${i}` }>
-                {category.name}
-              </label>
+              <label htmlFor={ `category-${i}` }>{category.name}</label>
             </div>
           ))
         ) : (
@@ -117,18 +116,15 @@ function Home() {
           {productsList.length > 0 ? (
             <ul>
               {productsList.map((product: any) => (
-                <li
-                  key={ product.id }
-                  data-testid="product"
-                >
+                <li key={ product.id } data-testid="product">
                   {product.title}
-
                 </li>
               ))}
             </ul>
           ) : (
             <p data-testid="home-initial-message">
-              {search.trim() !== '' ? 'Nenhum produto foi encontrado.'
+              {search.trim() !== ''
+                ? 'Nenhum produto foi encontrado.'
                 : 'Digite algum termo de pesquisa ou escolha uma categoria.'}
             </p>
           )}
