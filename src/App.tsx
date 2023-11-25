@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 
 function App() {
+
   return (
     <Routes>
       {/* Pagina Inicial - Requisito 2 */}
@@ -11,7 +12,7 @@ function App() {
         path="/"
         element={
           <Home />
-        }
+      }
       />
       {/* Pagina de Carrinho - Requisito 3 */}
       <Route path="/cart" element={ <Cart /> } />
