@@ -11,12 +11,18 @@ function App() {
       {/* Pagina Inicial - Requisito 2 */}
       <Route
         path="/"
-        element={
-          <Home />
-        }
+        element={ <Home /> }
       />
-      {/* Pagina de Carrinho - Requisito 3 */}
-      <Route path="/cart" element={ <Cart cartList={ cartList } /> } />
+      {/* Página de Detalhes do Produto - Novo Requisito */}
+      <Route
+        path="/product/:productId"
+        element={ <ProductDetails /> }
+      />
+      {/* Página de Carrinho - Requisito 3 */}
+      <Route
+        path="/cart"
+        element={ <Cart cartList={ cartList } /> }
+      />
     </Routes>
   );
 }
