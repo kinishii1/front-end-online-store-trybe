@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
+  addToCart,
   getCategories,
   getProductsFromCategoryAndQuery,
 } from '../services/api';
+import { ProductType } from '../types';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -43,6 +45,7 @@ function Home() {
         search,
       );
       setProductsList(searchData.results);
+      setSearched(true);
     } catch (error) {
       console.error('Erro ao buscar produtos por categoria:', error);
       setProductsList([]);
@@ -69,6 +72,10 @@ function Home() {
       setProductsList([]);
       setSearched(false);
     }
+  };
+
+  const handleAddInCart = (product: ProductType) => {
+    addToCart(product);
   };
 
   return (
@@ -116,9 +123,18 @@ function Home() {
           {productsList.length > 0 ? (
             <ul>
               {productsList.map((product: any) => (
-                <li key={ product.id } data-testid="product">
-                  {product.title}
-                </li>
+                <>
+                  <li key={ product.id } data-testid="product">
+                    {product.title}
+                  </li>
+                  <button
+                    data-testid="product-add-to-cart"
+                    onClick={ () => handleAddInCart(product) }
+                  >
+                    Adicionar ao carrinho
+                  </button>
+
+                </>
               ))}
             </ul>
           ) : (
