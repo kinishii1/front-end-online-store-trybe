@@ -1,11 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
 import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 
 function App() {
-  const [cartList] = useState<any[]>([]);
+
   return (
     <Routes>
       {/* Pagina Inicial - Requisito 2 */}
@@ -16,7 +15,7 @@ function App() {
       }
       />
       {/* Pagina de Carrinho - Requisito 3 */}
-      <Route path="/cart" element={ <Cart cartList={ cartList } /> } />
+      <Route path="/cart" element={ <Cart /> } />
     </Routes>
   );
 }
