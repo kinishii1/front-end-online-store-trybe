@@ -17,6 +17,16 @@ export async function getProductById() {
   // Atenção: essa função não deverá ser chamada na tela do carrinho de compras.
 }
 
+export async function getProductDetails(productId: string) {
+  try {
+    const data = await fetch(`https://api.mercadolibre.com/items/${productId}`);
+    return await data.json();
+  } catch (error) {
+    console.error('Erro ao buscar detalhes do produto:', error);
+    throw error;
+  }
+}
+
 const getCart = () => {
   return JSON.parse(localStorage.getItem('cart') || '[]');
 };
