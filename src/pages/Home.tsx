@@ -15,7 +15,7 @@ function Home() {
   const [search, setSearch] = useState('');
   const [productsList, setProductsList] = useState<any[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory] = useState<string>('');
   const [searched, setSearched] = useState<boolean>(false);
 
   useEffect(() => {
@@ -35,17 +35,17 @@ function Home() {
   };
 
   const handleCategoryClick = async (categoryId: string) => {
-    setSelectedCategory(categoryId);
-    setSearched(false);
     try {
       const searchData = await getProductsFromCategoryAndQuery(
         categoryId,
         search,
       );
       setProductsList(searchData.results);
+      setSearched(true);
     } catch (error) {
       console.error('Erro ao buscar produtos por categoria:', error);
       setProductsList([]);
+      setSearched(false);
     }
   };
 
@@ -117,7 +117,9 @@ function Home() {
             <ul>
               {productsList.map((product: any) => (
                 <li key={ product.id } data-testid="product">
-                  {product.title}
+                  <Link to={ `/product/${product.id}` } data-testid="product-detail-link">
+                    {product.title}
+                  </Link>
                 </li>
               ))}
             </ul>

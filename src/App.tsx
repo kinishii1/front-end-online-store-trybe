@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 
 function App() {
-  const [cartList, setCartList] = useState<any[]>([]);
+  const [cartList] = useState<any[]>([]);
   return (
     <Routes>
       {/* Pagina Inicial - Requisito 2 */}
@@ -13,7 +13,7 @@ function App() {
         path="/"
         element={
           <Home />
-        }
+      }
       />
       {/* Pagina de Carrinho - Requisito 3 */}
       <Route path="/cart" element={ <Cart cartList={ cartList } /> } />
