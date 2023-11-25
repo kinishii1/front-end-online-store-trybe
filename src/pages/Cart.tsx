@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ProductType } from '../types';
 import { changeQuantity, removeProduct } from '../services/api';
 
@@ -54,6 +55,14 @@ function Cart() {
       ) : (
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       )}
+      <Link to="/checkout">
+        <button
+          disabled={ !cartList.length }
+          data-testid="checkout-products"
+        >
+          Checkout
+        </button>
+      </Link>
     </>
   );
 }

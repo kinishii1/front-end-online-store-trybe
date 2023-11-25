@@ -8,3 +8,13 @@ export type ProductType = {
     free_shipping: boolean;
   };
 };
+
+export type CheckoutFormType = {
+  fullname: string;
+  email: string;
+  cpf: string;
+  phone: string;
+  cep: string;
+  address: string;
+  payment: string;
+};
