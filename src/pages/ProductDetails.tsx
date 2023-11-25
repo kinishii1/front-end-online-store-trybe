@@ -23,6 +23,8 @@ function ProductDetails() {
         data-testid="product-detail-image"
       />
       <p data-testid="product-detail-price">{productDetails.price}</p>
+      {productDetails.shipping?.free_shipping
+        && <p data-testid="free-shipping">Frete grátis</p>}
       <Link to="/cart" data-testid="shopping-cart-button">
         Carrinho
       </Link>

@@ -129,6 +129,8 @@ function Home() {
                     <li key={ product.id } data-testid="product">
                       {product.title}
                     </li>
+                    {product.shipping?.free_shipping
+                      && <p data-testid="free-shipping">Frete grátis</p>}
                   </Link>
                   <button
                     data-testid="product-add-to-cart"
