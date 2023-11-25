@@ -3,6 +3,7 @@ import './App.css';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       {/* Pagina de Carrinho - Requisito 3 */}
       <Route path="/cart" element={ <Cart /> } />
       <Route path="/checkout" element={ <Checkout /> } />
+      <Route path="/productDetails/:productId" element={ <ProductDetails /> } />
     </Routes>
   );
 }

@@ -122,9 +122,14 @@ function Home() {
             <ul>
               {productsList.map((product: any) => (
                 <>
-                  <li key={ product.id } data-testid="product">
-                    {product.title}
-                  </li>
+                  <Link
+                    to={ `/productDetails/${product.id}` }
+                    data-testid="product-detail-link"
+                  >
+                    <li key={ product.id } data-testid="product">
+                      {product.title}
+                    </li>
+                  </Link>
                   <button
                     data-testid="product-add-to-cart"
                     onClick={ () => handleAddInCart(product) }
