@@ -18,3 +18,8 @@ export type CheckoutFormType = {
   address: string;
   payment: string;
 };
+
+export type HomeProps = {
+  updateCartCount: () => void;
+  cartCount: number;
+};

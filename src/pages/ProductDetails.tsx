@@ -1,8 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductDetails } from '../services/api';
+import { HomeProps } from '../types';
 
-function ProductDetails() {
+function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
   const [productDetails, setProductDetails] = useState<any>({});
 
@@ -12,7 +13,8 @@ function ProductDetails() {
         .then((details) => setProductDetails(details))
         .catch((error) => console.error('Erro ao buscar detalhes do produto:', error));
     }
-  }, [productId]);
+    updateCartCount();
+  }, [productId, updateCartCount]);
 
   return (
     <>
@@ -25,6 +27,7 @@ function ProductDetails() {
       <p data-testid="product-detail-price">{productDetails.price}</p>
       <Link to="/cart" data-testid="shopping-cart-button">
         Carrinho
+        <span data-testid="shopping-cart-size">{cartCount}</span>
       </Link>
     </>
   );
