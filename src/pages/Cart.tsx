@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ProductType } from '../types';
+import { changeQuantity, removeProduct } from '../services/api';
 
 function Cart() {
   const [cartList, setCartList] = useState<ProductType[]>([]);
@@ -7,6 +8,14 @@ function Cart() {
   useEffect(() => {
     setCartList(JSON.parse(localStorage.getItem('cart') || '[]'));
   }, []);
+
+  const handleChangeQuantity = (product: ProductType, mult: number) => {
+    setCartList(changeQuantity(product, mult));
+  };
+
+  const handleRemoveProduct = (product: ProductType) => {
+    setCartList(removeProduct(product, cartList));
+  };
 
   return (
     <>
@@ -20,6 +29,26 @@ function Cart() {
               <strong>{product.quantity}</strong>
             </p>
             <p>{product.price}</p>
+            <button
+              data-testid="remove-product"
+              onClick={ () => handleRemoveProduct(product) }
+            >
+              remover
+            </button>
+            <button
+              data-testid="product-decrease-quantity"
+              onClick={ () => handleChangeQuantity(product, -1) }
+              disabled={ product.quantity === 1 }
+            >
+              -
+            </button>
+            <strong>{product.quantity}</strong>
+            <button
+              data-testid="product-increase-quantity"
+              onClick={ () => handleChangeQuantity(product, 1) }
+            >
+              +
+            </button>
           </div>
         ))
       ) : (
