@@ -39,3 +39,21 @@ export const addToCart = (product: ProductType) => {
   }
   setCart(cart);
 };
+
+export const changeQuantity = (product: ProductType, mult: number) => {
+  const cart = getCart();
+  const productChangeQtd = cart
+    .find((cartProduct: ProductType) => cartProduct.id === product.id);
+  const newQuantity = productChangeQtd.quantity + (mult * 1);
+  if (newQuantity <= productChangeQtd.available_quantity) {
+    productChangeQtd.quantity = newQuantity;
+  }
+  setCart(cart);
+  return cart;
+};
+
+export const removeProduct = (product: ProductType, productsInCart: ProductType[]) => {
+  const newProductsInCart = productsInCart.filter(({ id }) => id !== product.id);
+  setCart(newProductsInCart);
+  return newProductsInCart;
+};
