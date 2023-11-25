@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import {
+  addToCart,
   getCategories,
   getProductsFromCategoryAndQuery,
 } from '../services/api';
+import { ProductType } from '../types';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -71,12 +73,15 @@ function Home() {
     }
   };
 
+  const handleAddInCart = (product: ProductType) => {
+    addToCart(product);
+  };
+
   return (
     <>
       <Link data-testid="shopping-cart-button" to="/cart">
         Carrinho
       </Link>
-      <input type="text" onChange={ handleSearchInput } />
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
         <input
@@ -116,14 +121,17 @@ function Home() {
           {productsList.length > 0 ? (
             <ul>
               {productsList.map((product: any) => (
-                <li key={ product.id } data-testid="product">
-                  <Link
-                    to={ `/productDetails/${product.id}` }
-                    data-testid="product-detail-link"
-                  >
+                <>
+                  <li key={ product.id } data-testid="product">
                     {product.title}
-                  </Link>
-                </li>
+                  </li>
+                  <button
+                    data-testid="product-add-to-cart"
+                    onClick={ () => handleAddInCart(product) }
+                  >
+                    Adicionar ao carrinho
+                  </button>
+                </>
               ))}
             </ul>
           ) : (
