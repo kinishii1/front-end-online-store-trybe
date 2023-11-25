@@ -82,7 +82,6 @@ function Home() {
       <Link data-testid="shopping-cart-button" to="/cart">
         Carrinho
       </Link>
-      <input type="text" onChange={ handleSearchInput } />
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
         <input
@@ -122,18 +121,21 @@ function Home() {
           {productsList.length > 0 ? (
             <ul>
               {productsList.map((product: any) => (
-
                 <>
-                  <li key={ product.id } data-testid="product">
-                    {product.title}
-                  </li>
+                  <Link
+                    to={ `/productDetails/${product.id}` }
+                    data-testid="product-detail-link"
+                  >
+                    <li key={ product.id } data-testid="product">
+                      {product.title}
+                    </li>
+                  </Link>
                   <button
                     data-testid="product-add-to-cart"
                     onClick={ () => handleAddInCart(product) }
                   >
                     Adicionar ao carrinho
                   </button>
-
                 </>
               ))}
             </ul>
