@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ProductType } from '../types';
 import { changeQuantity, removeProduct } from '../services/api';
+import { ProductType } from '../types';
 
 function Cart() {
   const [cartList, setCartList] = useState<ProductType[]>([]);
