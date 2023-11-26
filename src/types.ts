@@ -18,3 +18,7 @@ export type CheckoutFormType = {
   address: string;
   payment: string;
 };
+
+export type SideCartProps = {
+  showCart: boolean;
+};
