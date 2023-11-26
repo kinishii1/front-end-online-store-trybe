@@ -18,3 +18,9 @@ export type CheckoutFormType = {
   address: string;
   payment: string;
 };
+
+export type ReviewType = {
+  email: string;
+  rating: number;
+  review: string;
+};
