@@ -9,12 +9,7 @@ function App() {
   return (
     <Routes>
       {/* Pagina Inicial - Requisito 2 */}
-      <Route
-        path="/"
-        element={
-          <Home />
-      }
-      />
+      <Route path="/" element={ <Home /> } />
       {/* Pagina de Carrinho - Requisito 3 */}
       <Route path="/cart" element={ <Cart /> } />
       <Route path="/checkout" element={ <Checkout /> } />

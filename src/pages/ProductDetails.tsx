@@ -1,9 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getProductDetails } from '../services/api';
-import { ReviewType } from '../types';
+import { ReviewType, ProductType } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
-import { ProductType } from '../types';
 
 function ProductDetails() {
   const { productId } = useParams<{ productId: string }>();
@@ -52,6 +50,7 @@ function ProductDetails() {
       setError('Campos inválidos');
       return;
     }
+
     const newReview: ReviewType = {
       email: form.email,
       rating: form.rating,
@@ -59,18 +58,19 @@ function ProductDetails() {
     };
 
     const updatedReviews = [...reviews, newReview];
-    setReviews((previousReviews: ReviewType[]) => [...previousReviews, newReview]);
+    setReviews(updatedReviews);
 
     localStorage.setItem(productId, JSON.stringify(updatedReviews));
 
-    setReviews(updatedReviews);
     setForm({
       email: '',
       rating: 0,
       review: '',
     });
+
     setError('');
-      
+  };
+
   const handleAddInCart = (product: ProductType) => {
     addToCart(product);
   };
