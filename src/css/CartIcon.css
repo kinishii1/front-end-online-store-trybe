@@ -21,12 +21,12 @@
 
 .item-count {
   left: 45px;
-  position: absolute;
   background-color: #2fc18c;
-  top: -26px;
+  position: absolute;
   border-radius: 999%;
+  top: -26px;
   color: white;
-  padding: 3px 8px;
   font-size: 14px;
+  padding: 3px 8px;
   text-align: center;
 }
