@@ -19,6 +19,11 @@ export type CheckoutFormType = {
   payment: string;
 };
 
+export type HomeProps = {
+  updateCartCount: () => void;
+  cartCount: number;
+};
+
 export type ReviewType = {
   email: string;
   rating: number;

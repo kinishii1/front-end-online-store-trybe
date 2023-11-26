@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ReviewType, ProductType } from '../types';
+import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
 
-function ProductDetails() {
+function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
   const [productDetails, setProductDetails] = useState<any>({});
   const ratings = [...Array(5).keys()].map((index) => index + 1);
@@ -29,7 +29,8 @@ function ProductDetails() {
         setReviews(JSON.parse(storedReviews));
       }
     }
-  }, [productId]);
+    updateCartCount();
+  }, [productId, updateCartCount]);
 
   const handleInputChange = (
     { target:
@@ -94,6 +95,7 @@ function ProductDetails() {
       </button>
       <Link to="/cart" data-testid="shopping-cart-button">
         Carrinho
+        <span data-testid="shopping-cart-size">{cartCount}</span>
       </Link>
 
       <form onSubmit={ handleSubmit }>
