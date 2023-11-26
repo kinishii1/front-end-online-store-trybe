@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { addToCart, getCategories, getProductsFromCategoryAndQuery }
-  from '../services/api';
+import {
+  addToCart,
+  getCategories,
+  getProductsFromCategoryAndQuery,
+} from '../services/api';
 import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
 
@@ -84,6 +87,28 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
     updateCartCount();
   };
 
+  const handleOrderBy = (event: ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === 'asc') {
+      const orderedProducts = [...productsList].sort(
+        (a, b) => a.price - b.price,
+      );
+      console.log(orderedProducts);
+      setProductsList(orderedProducts);
+    } else if (event.target.value === 'desc') {
+      const orderedProducts = [...productsList].sort(
+        (a, b) => b.price - a.price,
+      );
+      console.log(orderedProducts);
+      setProductsList(orderedProducts);
+    } else if (event.target.value === 'alpha') {
+      const orderedProducts = [...productsList].sort((a, b) => {
+        const aTitleFirstThree = a.title.slice(0, 3);
+        const bTitleFirstThree = b.title.slice(0, 3);
+        return aTitleFirstThree.localeCompare(bTitleFirstThree);
+      });
+      setProductsList(orderedProducts);
+    }
+  };
   return (
     <>
       <SideCart showCart={ showCart } />
@@ -105,6 +130,12 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
           value={ search }
           data-testid="query-input"
         />
+        <select onChange={ handleOrderBy }>
+          <option value="">Ordenar por preço</option>
+          <option value="asc">Maior preço</option>
+          <option value="desc">Menor preço</option>
+          <option value="alpha">Ordem alfabética</option>
+        </select>
         {' '}
         {categories.length > 0 ? (
           categories.map((category, i) => (
@@ -135,16 +166,15 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
           {productsList.length > 0 ? (
             <ul>
               {productsList.map((product: any) => (
-                <>
+                <div key={ product.id }>
                   <Link
                     to={ `/productDetails/${product.id}` }
                     data-testid="product-detail-link"
                   >
-                    <li key={ product.id } data-testid="product">
-                      {product.title}
-                    </li>
-                    {product.shipping?.free_shipping
-                      && <p data-testid="free-shipping">Frete grátis</p>}
+                    <li data-testid="product">{product.title}</li>
+                    {product.shipping?.free_shipping && (
+                      <p data-testid="free-shipping">Frete grátis</p>
+                    )}
                   </Link>
                   <button
                     data-testid="product-add-to-cart"
@@ -152,7 +182,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
                   >
                     Adicionar ao carrinho
                   </button>
-                </>
+                </div>
               ))}
             </ul>
           ) : (
