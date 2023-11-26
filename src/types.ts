@@ -19,6 +19,10 @@ export type CheckoutFormType = {
   payment: string;
 };
 
+export type SideCartProps = {
+  showCart: boolean;
+};
+
 export type HomeProps = {
   updateCartCount: () => void;
   cartCount: number;

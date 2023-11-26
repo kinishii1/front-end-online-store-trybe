@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import {
-  addToCart,
-  getCategories,
-  getProductsFromCategoryAndQuery,
-} from '../services/api';
+import { addToCart, getCategories, getProductsFromCategoryAndQuery }
+  from '../services/api';
+import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
 
 // Tipo para os objetos de categoria
@@ -17,8 +15,9 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   const [search, setSearch] = useState('');
   const [productsList, setProductsList] = useState<any[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searched, setSearched] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -41,6 +40,8 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   };
 
   const handleCategoryClick = async (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    setProductsList([]);
     try {
       const searchData = await getProductsFromCategoryAndQuery(
         categoryId,
@@ -52,6 +53,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
       console.error('Erro ao buscar produtos por categoria:', error);
       setProductsList([]);
       setSearched(false);
+      setSelectedCategory('');
     }
   };
 
@@ -84,7 +86,13 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
 
   return (
     <>
-      <Link data-testid="shopping-cart-button" to="/cart">
+      <SideCart showCart={ showCart } />
+      <Link
+        onMouseEnter={ () => setShowCart(true) }
+        onMouseLeave={ () => setShowCart(false) }
+        data-testid="shopping-cart-button"
+        to="/cart"
+      >
         Carrinho
         <span data-testid="shopping-cart-size">{cartCount}</span>
       </Link>
