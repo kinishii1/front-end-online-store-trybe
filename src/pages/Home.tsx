@@ -7,6 +7,7 @@ import {
 } from '../services/api';
 import { ProductType } from '../types';
 import SideCart from './SideCart';
+import { HomeProps, ProductType } from '../types';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -14,7 +15,7 @@ interface Category {
   name: string;
 }
 
-function Home() {
+function Home({ cartCount, updateCartCount }: HomeProps) {
   const [search, setSearch] = useState('');
   const [productsList, setProductsList] = useState<any[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -33,6 +34,10 @@ function Home() {
     }
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    updateCartCount();
+  }, [updateCartCount]);
 
   const handleSearchInput = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -80,6 +85,7 @@ function Home() {
 
   const handleAddInCart = (product: ProductType) => {
     addToCart(product);
+    updateCartCount();
   };
 
   return (
@@ -92,6 +98,7 @@ function Home() {
         to="/cart"
       >
         Carrinho
+        <span data-testid="shopping-cart-size">{cartCount}</span>
       </Link>
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
@@ -140,6 +147,8 @@ function Home() {
                     <li key={ product.id } data-testid="product">
                       {product.title}
                     </li>
+                    {product.shipping?.free_shipping
+                      && <p data-testid="free-shipping">Frete grátis</p>}
                   </Link>
                   <button
                     data-testid="product-add-to-cart"
