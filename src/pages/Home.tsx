@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import {
-  addToCart,
-  getCategories,
-  getProductsFromCategoryAndQuery,
-} from '../services/api';
-import { ProductType } from '../types';
+import { addToCart, getCategories, getProductsFromCategoryAndQuery }
+  from '../services/api';
 import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
 
