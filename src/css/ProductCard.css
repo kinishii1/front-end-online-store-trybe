@@ -1,0 +1,82 @@
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-card {
+  width: 279.605px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4.6px;
+  padding: 20px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.product-card img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  margin-left: 60px;
+  margin-bottom: 20px;
+}
+
+.product-card__title {
+  color: #000;
+  text-align: center;
+  font-family: 'Epilogue';
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.product-card__price {
+  color: #444955;
+  font-family: Epilogue;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.product-card__tag {
+  color: #FFF;
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  width: 49px;
+  height: 29px;
+  text-align: center;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  background-color: #003BE5;
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+.product-card__button {
+  color: #FFF;
+  text-align: center;
+  font-family: Epilogue;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0em;
+  background: #31C28D;
+  padding: 15px;
+  border: none;
+}
+
+.highlight {
+  border: 5px solid yellow;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 0, 0.5);
+}

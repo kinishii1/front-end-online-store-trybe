@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { addToCart, getCategories, getProductsFromCategoryAndQuery }
-  from '../services/api';
+import {
+  addToCart,
+  getCategories,
+  getProductsFromCategoryAndQuery,
+} from '../services/api';
 import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
+import '../css/ProductCard.css';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -18,6 +22,11 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searched, setSearched] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [cartList, setCartList] = useState<ProductType[]>([]);
+
+  useEffect(() => {
+    setCartList(JSON.parse(localStorage.getItem('cart') || '[]'));
+  }, []);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -82,6 +91,8 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   const handleAddInCart = (product: ProductType) => {
     addToCart(product);
     updateCartCount();
+    setCartList([...cartList, product]);
+    console.log(cartList);
   };
 
   return (
@@ -133,27 +144,52 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
       {searched && (
         <div>
           {productsList.length > 0 ? (
-            <ul>
-              {productsList.map((product: any) => (
-                <>
-                  <Link
-                    to={ `/productDetails/${product.id}` }
-                    data-testid="product-detail-link"
+            <ul className="product-list">
+              {productsList.map((product: any) => {
+                const isInCart = cartList.some(
+                  (item) => item.id === product.id,
+                );
+                return (
+                  <div
+                    key={ product.id }
+                    className={ `product-card ${isInCart ? 'highlight' : ''}` }
                   >
-                    <li key={ product.id } data-testid="product">
-                      {product.title}
-                    </li>
-                    {product.shipping?.free_shipping
-                      && <p data-testid="free-shipping">Frete grátis</p>}
-                  </Link>
-                  <button
-                    data-testid="product-add-to-cart"
-                    onClick={ () => handleAddInCart(product) }
-                  >
-                    Adicionar ao carrinho
-                  </button>
-                </>
-              ))}
+                    <Link
+                      to={ `/productDetails/${product.id}` }
+                      data-testid="product-detail-link"
+                    >
+                      <img src={ product.thumbnail } alt={ product.title } />
+                      <li
+                        className="product-card__title"
+                        data-testid="product"
+                      >
+                        {product.title}
+                      </li>
+                      <li className="product-card__price">
+                        {new Intl.NumberFormat('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        }).format(product.price)}
+                      </li>
+                      {product.shipping?.free_shipping && (
+                        <p
+                          className="product-card__tag"
+                          data-testid="free-shipping"
+                        >
+                          Frete grátis
+                        </p>
+                      )}
+                    </Link>
+                    <button
+                      className="product-card__button"
+                      data-testid="product-add-to-cart"
+                      onClick={ () => handleAddInCart(product) }
+                    >
+                      Adicionar ao carrinho
+                    </button>
+                  </div>
+                );
+              })}
             </ul>
           ) : (
             <p data-testid="home-initial-message">
