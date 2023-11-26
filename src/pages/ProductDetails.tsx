@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { HomeProps } from '../types';
-import { ReviewType, ProductType } from '../types';
+import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
 
 function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
