@@ -8,6 +8,8 @@ import {
 import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
 import '../css/ProductCard.css';
+import cartIcon from '../assets/cart-icon.svg';
+import '../css/CartIcon.css';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -27,6 +29,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   useEffect(() => {
     setCartList(JSON.parse(localStorage.getItem('cart') || '[]'));
   }, []);
+  const [bounce, setBounce] = useState(false);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -93,8 +96,33 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
     updateCartCount();
     setCartList([...cartList, product]);
     console.log(cartList);
+
+    setBounce(true);
+    setTimeout(() => setBounce(false), 500);
   };
 
+  const handleOrderBy = (event: ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === 'asc') {
+      const orderedProducts = [...productsList].sort(
+        (a, b) => a.price - b.price,
+      );
+      console.log(orderedProducts);
+      setProductsList(orderedProducts);
+    } else if (event.target.value === 'desc') {
+      const orderedProducts = [...productsList].sort(
+        (a, b) => b.price - a.price,
+      );
+      console.log(orderedProducts);
+      setProductsList(orderedProducts);
+    } else if (event.target.value === 'alpha') {
+      const orderedProducts = [...productsList].sort((a, b) => {
+        const aTitleFirstThree = a.title.slice(0, 3);
+        const bTitleFirstThree = b.title.slice(0, 3);
+        return aTitleFirstThree.localeCompare(bTitleFirstThree);
+      });
+      setProductsList(orderedProducts);
+    }
+  };
   return (
     <>
       <SideCart showCart={ showCart } />
@@ -103,9 +131,15 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
         onMouseLeave={ () => setShowCart(false) }
         data-testid="shopping-cart-button"
         to="/cart"
+        className="link-cart"
       >
-        Carrinho
-        <span data-testid="shopping-cart-size">{cartCount}</span>
+        <img src={ cartIcon } className="cart-icon" alt="cart-icon" />
+        <span
+          className={ `item-count ${bounce ? 'bounce' : ''}` }
+          data-testid="shopping-cart-size"
+        >
+          {cartCount}
+        </span>
       </Link>
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
@@ -116,6 +150,12 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
           value={ search }
           data-testid="query-input"
         />
+        <select onChange={ handleOrderBy }>
+          <option value="">Ordenar por preço</option>
+          <option value="asc">Maior preço</option>
+          <option value="desc">Menor preço</option>
+          <option value="alpha">Ordem alfabética</option>
+        </select>
         {' '}
         {categories.length > 0 ? (
           categories.map((category, i) => (
