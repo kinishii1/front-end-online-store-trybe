@@ -2,6 +2,8 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
+import '../css/CartIcon.css';
+import cartIcon from '../assets/cart-icon.svg';
 
 function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
@@ -15,13 +17,17 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
     rating: 0,
     review: '',
   });
+  const [bounce, setBounce] = useState(false);
 
   useEffect(() => {
     if (productId) {
       getProductDetails(productId)
         .then((details) => setProductDetails(details))
-        .catch((requestError) => console
-          .error('Erro ao buscar detalhes do produto:', requestError));
+        .catch(
+          (requestError) => {
+            console.error('Erro ao buscar detalhes do produto:', requestError);
+          },
+        );
     }
     if (productId) {
       const storedReviews = localStorage.getItem(productId);
@@ -32,11 +38,9 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
     updateCartCount();
   }, [productId, updateCartCount]);
 
-  const handleInputChange = (
-    { target:
-      { name, value },
-    }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handleInputChange = ({
+    target: { name, value },
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const validValue = name === 'rating' ? Number(value) : value;
     setForm({ ...form, [name]: validValue });
   };
@@ -46,8 +50,12 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
 
     if (!productId) return;
 
-    if ((!form.email.length
-      || !form.email.includes('.') || !form.email.includes('@')) || !form.rating) {
+    if (
+      !form.email.length
+      || !form.email.includes('.')
+      || !form.email.includes('@')
+      || !form.rating
+    ) {
       setError('Campos inválidos');
       return;
     }
@@ -74,6 +82,10 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
 
   const handleAddInCart = (product: ProductType) => {
     addToCart(product);
+    updateCartCount();
+
+    setBounce(true);
+    setTimeout(() => setBounce(false), 500);
   };
 
   return (
@@ -85,17 +97,23 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
         data-testid="product-detail-image"
       />
       <p data-testid="product-detail-price">{productDetails.price}</p>
-      {productDetails.shipping?.free_shipping
-        && <p data-testid="free-shipping">Frete grátis</p>}
+      {productDetails.shipping?.free_shipping && (
+        <p data-testid="free-shipping">Frete grátis</p>
+      )}
       <button
         data-testid="product-detail-add-to-cart"
         onClick={ () => handleAddInCart(productDetails) }
       >
         Adicionar ao carrinho
       </button>
-      <Link to="/cart" data-testid="shopping-cart-button">
-        Carrinho
-        <span data-testid="shopping-cart-size">{cartCount}</span>
+      <Link to="/cart" data-testid="shopping-cart-button" className="link-cart">
+        <img src={ cartIcon } className="cart-icon" alt="cart-icon" />
+        <span
+          className={ `item-count ${bounce ? 'bounce' : ''}` }
+          data-testid="shopping-cart-size"
+        >
+          {cartCount}
+        </span>
       </Link>
 
       <form onSubmit={ handleSubmit }>
@@ -120,26 +138,25 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
           />
         </label>
 
-        {
-          ratings.map((value) => (
-            <label htmlFor="" key={ value }>
-              {value}
-              <input
-                data-testid={ `${value}-rating` }
-                type="radio"
-                name="rating"
-                value={ value }
-                onChange={ handleInputChange }
-                checked={ form.rating === value }
+        {ratings.map((value) => (
+          <label htmlFor="" key={ value }>
+            {value}
+            <input
+              data-testid={ `${value}-rating` }
+              type="radio"
+              name="rating"
+              value={ value }
+              onChange={ handleInputChange }
+              checked={ form.rating === value }
+            />
+          </label>
+        ))}
 
-              />
-            </label>
-          ))
-        }
+        {error && <p data-testid="error-msg">{error}</p>}
 
-        {error && <p data-testid="error-msg">{ error }</p>}
-
-        <button type="submit" data-testid="submit-review-btn">Avaliar</button>
+        <button type="submit" data-testid="submit-review-btn">
+          Avaliar
+        </button>
       </form>
 
       <div className="reviews">
@@ -151,7 +168,6 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
           </div>
         ))}
       </div>
-
     </>
   );
 }

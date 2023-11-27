@@ -7,6 +7,8 @@ import {
 } from '../services/api';
 import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
+import cartIcon from '../assets/cart-icon.svg';
+import '../css/CartIcon.css';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -21,6 +23,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searched, setSearched] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [bounce, setBounce] = useState(false);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -85,6 +88,9 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   const handleAddInCart = (product: ProductType) => {
     addToCart(product);
     updateCartCount();
+
+    setBounce(true);
+    setTimeout(() => setBounce(false), 500);
   };
 
   const handleOrderBy = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -117,9 +123,15 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
         onMouseLeave={ () => setShowCart(false) }
         data-testid="shopping-cart-button"
         to="/cart"
+        className="link-cart"
       >
-        Carrinho
-        <span data-testid="shopping-cart-size">{cartCount}</span>
+        <img src={ cartIcon } className="cart-icon" alt="cart-icon" />
+        <span
+          className={ `item-count ${bounce ? 'bounce' : ''}` }
+          data-testid="shopping-cart-size"
+        >
+          {cartCount}
+        </span>
       </Link>
       <h1>Lista de Produtos</h1>
       <form onSubmit={ handleSearch }>
@@ -171,7 +183,9 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
                     to={ `/productDetails/${product.id}` }
                     data-testid="product-detail-link"
                   >
-                    <li data-testid="product">{product.title}</li>
+                    <li key={ product.id } data-testid="product">
+                      {product.title}
+                    </li>
                     {product.shipping?.free_shipping && (
                       <p data-testid="free-shipping">Frete grátis</p>
                     )}
