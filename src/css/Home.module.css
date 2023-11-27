@@ -1,0 +1,75 @@
+.containerMain {
+  display: flex;
+}
+
+.categorias {
+  width: 310px;
+  box-shadow: 3px 3px 6px black;
+  padding: 36px;
+}
+
+.categorias button {
+  background-color: #31C28D;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.search{
+  height: 35px; 
+  width: 238px;
+  border: 1px solid black;
+  padding: 10px;
+  line-height: 16.4px;
+  font-weight: 400;
+  font-size: 14px;
+  color: #B0B3BB;
+  background-image: url(/src/assets/SearchSVG.svg);
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x: 95%;
+}
+
+.radioCategory input{
+   display: none;
+}
+
+.radioCategory input:checked + label {
+  color: #003BE5;
+  font-weight: bold;
+}
+
+.radioCategory {
+  color: #444955;
+  padding-bottom: 15px;
+}
+
+.radioCategory label {
+  cursor: pointer;
+}
+
+.radioCategory:first-of-type {
+  border-top: 2px solid #B0B3BB;
+  padding-top: 20px;
+}
+
+.produtos select {
+  position: absolute;
+  right: 0px;
+  background-color: none;
+  padding: 10px;
+  margin: 15px;
+  font-size: 16px;
+  color: #444955;
+  border: 1px solid #444955;
+}
+
+.produtos ul {
+  margin-top: 50px;
+}
+
+.produtos ul img {
+  height: 100%;
+}

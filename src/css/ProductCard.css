@@ -2,13 +2,16 @@
   background-color: white;
   border-radius: 4.6px;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: space-between;
+  align-items: center;
   margin: 20px;
   padding: 20px;
   position: relative;
   width: 279.605px;
+  text-align: center;
 }
 
 .product-card__button {
@@ -23,11 +26,7 @@
 }
 
 .product-card__image {
-  height: 60%;
-  margin-bottom: 20px;
-  margin-left: 60px;
-  object-fit: contain;
-  width: 60%;
+ 
 }
 
 .product-card__price {

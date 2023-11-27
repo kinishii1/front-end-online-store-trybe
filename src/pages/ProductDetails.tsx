@@ -4,6 +4,7 @@ import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
 import '../css/CartIcon.css';
 import cartIcon from '../assets/cart-icon.svg';
+import Header from './Header';
 
 function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
@@ -90,6 +91,7 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
 
   return (
     <>
+      <Header cartCount={ cartCount } />
       <h1 data-testid="product-detail-name">{productDetails.title}</h1>
       <img
         src={ productDetails.image }
@@ -106,16 +108,6 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
       >
         Adicionar ao carrinho
       </button>
-      <Link to="/cart" data-testid="shopping-cart-button" className="link-cart">
-        <img src={ cartIcon } className="cart-icon" alt="cart-icon" />
-        <span
-          className={ `item-count ${bounce ? 'bounce' : ''}` }
-          data-testid="shopping-cart-size"
-        >
-          {cartCount}
-        </span>
-      </Link>
-
       <form onSubmit={ handleSubmit }>
         <label htmlFor="email">
           <input

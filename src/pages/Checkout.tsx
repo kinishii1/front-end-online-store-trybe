@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckoutFormType, ProductType } from '../types';
+import Header from './Header';
 
-function Checkout() {
+type CheckoutProps = {
+  cartCount: number;
+};
+
+function Checkout({ cartCount }: CheckoutProps) {
   const [campos, setCampos] = useState<CheckoutFormType>({
     fullname: '',
     email: '',
@@ -47,6 +52,7 @@ function Checkout() {
 
   return (
     <>
+      <Header cartCount={ cartCount } />
       <section>
         <h1>Review Your Products</h1>
         {cartList.map(({ title, thumbnail, price, id }) => (

@@ -2,8 +2,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { changeQuantity, removeProduct } from '../services/api';
 import { ProductType } from '../types';
+import Header from './Header';
 
-function Cart() {
+type CartProps = {
+  cartCount: number;
+};
+
+function Cart({ cartCount }: CartProps) {
   const [cartList, setCartList] = useState<ProductType[]>([]);
 
   useEffect(() => {
@@ -19,7 +24,8 @@ function Cart() {
   };
 
   return (
-    <>
+    <div>
+      <Header cartCount={ cartCount } />
       <h1>Carrinho de Compras</h1>
       {cartList.length > 0 ? (
         cartList.map((product) => (
@@ -63,7 +69,7 @@ function Cart() {
           Checkout
         </button>
       </Link>
-    </>
+    </div>
   );
 }
 
