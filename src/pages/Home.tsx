@@ -93,6 +93,28 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
     setTimeout(() => setBounce(false), 500);
   };
 
+  const handleOrderBy = (event: ChangeEvent<HTMLSelectElement>) => {
+    if (event.target.value === 'asc') {
+      const orderedProducts = [...productsList].sort(
+        (a, b) => a.price - b.price,
+      );
+      console.log(orderedProducts);
+      setProductsList(orderedProducts);
+    } else if (event.target.value === 'desc') {
+      const orderedProducts = [...productsList].sort(
+        (a, b) => b.price - a.price,
+      );
+      console.log(orderedProducts);
+      setProductsList(orderedProducts);
+    } else if (event.target.value === 'alpha') {
+      const orderedProducts = [...productsList].sort((a, b) => {
+        const aTitleFirstThree = a.title.slice(0, 3);
+        const bTitleFirstThree = b.title.slice(0, 3);
+        return aTitleFirstThree.localeCompare(bTitleFirstThree);
+      });
+      setProductsList(orderedProducts);
+    }
+  };
   return (
     <>
       <SideCart showCart={ showCart } />
@@ -120,6 +142,12 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
           value={ search }
           data-testid="query-input"
         />
+        <select onChange={ handleOrderBy }>
+          <option value="">Ordenar por preço</option>
+          <option value="asc">Maior preço</option>
+          <option value="desc">Menor preço</option>
+          <option value="alpha">Ordem alfabética</option>
+        </select>
         {' '}
         {categories.length > 0 ? (
           categories.map((category, i) => (
@@ -150,7 +178,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
           {productsList.length > 0 ? (
             <ul>
               {productsList.map((product: any) => (
-                <>
+                <div key={ product.id }>
                   <Link
                     to={ `/productDetails/${product.id}` }
                     data-testid="product-detail-link"
@@ -168,7 +196,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
                   >
                     Adicionar ao carrinho
                   </button>
-                </>
+                </div>
               ))}
             </ul>
           ) : (
