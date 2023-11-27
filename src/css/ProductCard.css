@@ -23,10 +23,7 @@
   font-weight: 600;
   padding: 15px;
   text-align: center;
-}
-
-.product-card__image {
- 
+  width: 100%;
 }
 
 .product-card__price {
