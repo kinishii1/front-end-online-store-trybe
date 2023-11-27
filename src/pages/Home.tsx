@@ -5,11 +5,12 @@ import {
   getCategories,
   getProductsFromCategoryAndQuery,
 } from '../services/api';
-import SideCart from './SideCart';
 import { HomeProps, ProductType } from '../types';
 import '../css/ProductCard.css';
-import cartIcon from '../assets/cart-icon.svg';
 import '../css/CartIcon.css';
+import Header from './Header';
+import styles from '../css/Home.module.css';
+import Titulos from '../components/Titulos';
 
 // Tipo para os objetos de categoria
 interface Category {
@@ -23,13 +24,11 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searched, setSearched] = useState<boolean>(false);
-  const [showCart, setShowCart] = useState<boolean>(false);
   const [cartList, setCartList] = useState<ProductType[]>([]);
 
   useEffect(() => {
     setCartList(JSON.parse(localStorage.getItem('cart') || '[]'));
   }, []);
-  const [bounce, setBounce] = useState(false);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -96,9 +95,6 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
     updateCartCount();
     setCartList([...cartList, product]);
     console.log(cartList);
-
-    setBounce(true);
-    setTimeout(() => setBounce(false), 500);
   };
 
   const handleOrderBy = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -124,124 +120,114 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
     }
   };
   return (
-    <>
-      <SideCart showCart={ showCart } />
-      <Link
-        onMouseEnter={ () => setShowCart(true) }
-        onMouseLeave={ () => setShowCart(false) }
-        data-testid="shopping-cart-button"
-        to="/cart"
-        className="link-cart"
-      >
-        <img src={ cartIcon } className="cart-icon" alt="cart-icon" />
-        <span
-          className={ `item-count ${bounce ? 'bounce' : ''}` }
-          data-testid="shopping-cart-size"
-        >
-          {cartCount}
-        </span>
-      </Link>
-      <h1>Lista de Produtos</h1>
-      <form onSubmit={ handleSearch }>
-        <input
-          type="text"
-          onChange={ handleSearchInput }
-          placeholder="Digite o produto desejado..."
-          value={ search }
-          data-testid="query-input"
-        />
-        <select onChange={ handleOrderBy }>
-          <option value="">Ordenar por preço</option>
-          <option value="asc">Maior preço</option>
-          <option value="desc">Menor preço</option>
-          <option value="alpha">Ordem alfabética</option>
-        </select>
-        {' '}
-        {categories.length > 0 ? (
-          categories.map((category, i) => (
-            <div key={ category.id }>
-              <input
-                type="radio"
-                id={ `category-${i}` }
-                name="category"
-                value={ category.id }
-                checked={ selectedCategory === category.id }
-                onChange={ () => handleCategoryClick(category.id) }
-                data-testid="category"
-              />
-              <label htmlFor={ `category-${i}` }>{category.name}</label>
-            </div>
-          ))
-        ) : (
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        )}
-        <button data-testid="query-button" type="submit">
-          Pesquisa
-        </button>
-      </form>
-      {searched && (
-        <div>
-          {productsList.length > 0 ? (
-            <ul className="product-list">
-              {productsList.map((product: any) => {
-                const isInCart = cartList.some(
-                  (item) => item.id === product.id,
-                );
-                return (
-                  <div
-                    key={ product.id }
-                    className={ `product-card ${isInCart ? 'highlight' : ''}` }
-                  >
-                    <Link
-                      to={ `/productDetails/${product.id}` }
-                      data-testid="product-detail-link"
-                    >
-                      <img
-                        className="product-card__image"
-                        src={ product.thumbnail }
-                        alt={ product.title }
-                      />
-                      <li className="product-card__title" data-testid="product">
-                        {product.title}
-                      </li>
-                      <li className="product-card__price">
-                        {new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        }).format(product.price)}
-                      </li>
-                      {product.shipping?.free_shipping && (
-                        <p
-                          className="product-card__tag"
-                          data-testid="free-shipping"
-                        >
-                          Frete grátis
-                        </p>
-                      )}
-                    </Link>
-                    <button
-                      className="product-card__button"
-                      data-testid="product-add-to-cart"
-                      onClick={ () => handleAddInCart(product) }
-                    >
-                      Adicionar ao carrinho
-                    </button>
-                  </div>
-                );
-              })}
-            </ul>
+    <div className={ styles.pai }>
+      <Header cartCount={ cartCount } />
+      <main className={ styles.containerMain }>
+        <form className={ styles.categorias } onSubmit={ handleSearch }>
+          <input
+            className={ styles.search }
+            type="text"
+            onChange={ handleSearchInput }
+            placeholder="Digite o produto desejado..."
+            value={ search }
+            data-testid="query-input"
+          />
+          <Titulos>Categorias</Titulos>
+          {categories.length > 0 ? (
+            categories.map((category, i) => (
+              <div className={ styles.radioCategory } key={ category.id }>
+                <input
+                  type="radio"
+                  id={ `category-${i}` }
+                  name="category"
+                  value={ category.id }
+                  checked={ selectedCategory === category.id }
+                  onChange={ () => handleCategoryClick(category.id) }
+                  data-testid="category"
+                />
+                <label
+                  htmlFor={ `category-${i}` }
+                >
+                  {category.name}
+                </label>
+              </div>
+            ))
           ) : (
             <p data-testid="home-initial-message">
-              {search.trim() !== ''
-                ? 'Nenhum produto foi encontrado.'
-                : 'Digite algum termo de pesquisa ou escolha uma categoria.'}
+              Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
           )}
-        </div>
-      )}
-    </>
+          <button data-testid="query-button" type="submit">
+            Pesquisa
+          </button>
+        </form>
+        {searched && (
+          <div className={ styles.produtos }>
+            <select onChange={ handleOrderBy }>
+              <option value="">Ordenar por preço</option>
+              <option value="asc">Maior preço</option>
+              <option value="desc">Menor preço</option>
+              <option value="alpha">Ordem alfabética</option>
+            </select>
+            {productsList.length > 0 ? (
+              <ul className="product-list">
+                {productsList.map((product: any) => {
+                  const isInCart = cartList.some(
+                    (item) => item.id === product.id,
+                  );
+                  return (
+                    <div
+                      key={ product.id }
+                      className={ `product-card ${isInCart ? 'highlight' : ''}` }
+                    >
+                      <Link
+                        to={ `/productDetails/${product.id}` }
+                        data-testid="product-detail-link"
+                      >
+                        <img src={ product.thumbnail } alt={ product.title } />
+                        <li
+                          className="product-card__title"
+                          data-testid="product"
+                        >
+                          {product.title}
+                        </li>
+                        <li className="product-card__price">
+                          {new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
+                          }).format(product.price)}
+                        </li>
+                        {product.shipping?.free_shipping && (
+                          <p
+                            className="product-card__tag"
+                            data-testid="free-shipping"
+                          >
+                            Frete grátis
+                          </p>
+                        )}
+                      </Link>
+                      <button
+                        className="product-card__button"
+                        data-testid="product-add-to-cart"
+                        onClick={ () => handleAddInCart(product) }
+                      >
+                        Adicionar ao carrinho
+                      </button>
+                    </div>
+                  );
+                })}
+              </ul>
+            ) : (
+              <p data-testid="home-initial-message">
+                {search.trim() !== ''
+                  ? 'Nenhum produto foi encontrado.'
+                  : 'Digite algum termo de pesquisa ou escolha uma categoria.'}
+              </p>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
   );
 }
 

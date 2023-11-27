@@ -29,10 +29,10 @@ function App() {
           />
       }
       />
-      <Route path="/" element={ <Home /> } />
+
       {/* Pagina de Carrinho - Requisito 3 */}
-      <Route path="/cart" element={ <Cart /> } />
-      <Route path="/checkout" element={ <Checkout /> } />
+      <Route path="/cart" element={ <Cart cartCount={ cartCount } /> } />
+      <Route path="/checkout" element={ <Checkout cartCount={ cartCount } /> } />
       <Route
         path="/productDetails/:productId"
         element={ <ProductDetails
