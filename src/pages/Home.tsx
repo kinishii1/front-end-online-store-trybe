@@ -198,11 +198,12 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
                       to={ `/productDetails/${product.id}` }
                       data-testid="product-detail-link"
                     >
-                      <img src={ product.thumbnail } alt={ product.title } />
-                      <li
-                        className="product-card__title"
-                        data-testid="product"
-                      >
+                      <img
+                        className="product-card__image"
+                        src={ product.thumbnail }
+                        alt={ product.title }
+                      />
+                      <li className="product-card__title" data-testid="product">
                         {product.title}
                       </li>
                       <li className="product-card__price">
