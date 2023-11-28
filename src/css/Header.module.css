@@ -6,3 +6,25 @@
   justify-content: space-around;
   padding: 0 40px;
 }
+
+.link-cart {
+  position: relative;
+}
+
+.cart-icon {
+  cursor: pointer;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.item-count {
+  background-color: #2fc18c;
+  border-radius: 999%;
+  color: white;
+  font-size: 13px;
+  left: 45px;
+  padding: 3px 7px;
+  position: absolute;
+  text-align: center;
+  top: 17px;
+}

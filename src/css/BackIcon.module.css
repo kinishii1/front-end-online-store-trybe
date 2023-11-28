@@ -1,0 +1,16 @@
+.back {
+  align-items: center;
+  display: flex;
+}
+
+.back img {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.back p {
+  color: #2fc18c;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px;
+}

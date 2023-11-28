@@ -12,8 +12,10 @@ function App() {
 
   const updateCartCount = () => {
     const productsInCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const newCartCount = productsInCart
-      .reduce((sum: number, product: ProductType) => sum + (product.quantity || 0), 0);
+    const newCartCount = productsInCart.reduce(
+      (sum: number, product: ProductType) => sum + (product.quantity || 0),
+      0,
+    );
     setCartCount(newCartCount);
   };
 
@@ -23,22 +25,26 @@ function App() {
       <Route
         path="/"
         element={
-          <Home
-            cartCount={ cartCount }
-            updateCartCount={ updateCartCount }
-          />
-      }
+          <Home cartCount={ cartCount } updateCartCount={ updateCartCount } />
+        }
       />
 
       {/* Pagina de Carrinho - Requisito 3 */}
-      <Route path="/cart" element={ <Cart cartCount={ cartCount } /> } />
+      <Route
+        path="/cart"
+        element={
+          <Cart cartCount={ cartCount } updateCartCount={ updateCartCount } />
+        }
+      />
       <Route path="/checkout" element={ <Checkout cartCount={ cartCount } /> } />
       <Route
         path="/productDetails/:productId"
-        element={ <ProductDetails
-          cartCount={ cartCount }
-          updateCartCount={ updateCartCount }
-        /> }
+        element={
+          <ProductDetails
+            cartCount={ cartCount }
+            updateCartCount={ updateCartCount }
+          />
+        }
       />
     </Routes>
   );

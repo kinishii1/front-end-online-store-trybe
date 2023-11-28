@@ -16,10 +16,12 @@ function Layout({ cartCount }: LayoutProsps) {
       <Link
         data-testid="shopping-cart-button"
         to="/cart"
+        className={ styles['link-cart'] }
       >
-        <img src={ cartIcon } className="cart-icon" alt="cart-icon" />
+        <img src={ cartIcon } className={ styles['cart-icon'] } alt="cart-icon" />
         <span
           data-testid="shopping-cart-size"
+          className={ styles['item-count'] }
         >
           { cartCount }
         </span>
