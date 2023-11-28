@@ -80,8 +80,8 @@
   background: #2fc18c;
   color: white;
   cursor: pointer;
-  font-size: 30px;
   border: 1px solid white;
+  font-size: 30px;
   font-weight: 700;
   padding: 20px;
   text-align: center;
@@ -89,9 +89,9 @@
 }
 
 .form p {
-  text-align: center;
   font-size: 30px;
   font-weight: 700;
+  text-align: center;
 }
 
 .form {
