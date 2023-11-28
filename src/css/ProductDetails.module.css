@@ -1,3 +1,24 @@
+.back {
+  align-items: center;
+  align-self: flex-start;
+  background-color: unset;
+  border: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.back img {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.back p {
+  color: #2fc18c;
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
 .image {
   height: 364.835px;
   margin: 0 auto;
@@ -12,4 +33,136 @@
   font-weight: 700;
   line-height: normal;
   text-align: center;
+}
+
+.containerPai {
+  display: flex;
+  padding-bottom: 50px;
+}
+
+.blockleft {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+
+.blockleft div {
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 15px 0 #b0b3bb;
+  display: flex;
+  flex-direction: column;
+  height: 510px;
+  justify-content: space-evenly;
+  width: 488px;
+}
+
+.blockright {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+}
+
+.blockright p {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.blockright span {
+  color: #b0b3bb;
+}
+
+.btn {
+  background: #2fc18c;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 20px;
+  text-align: center;
+  width: 50%;
+}
+
+.form p {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form {
+  align-items: center;
+  background-color: white;
+  border-top: 50px solid #b0b3bb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px 50px;
+  padding-bottom: 30px;
+}
+
+.emailInput {
+  margin: 20px;
+  width: 400px;
+}
+
+.textAreaInput {
+  height: 150px;
+  margin-bottom: 20px;
+  width: 400px;
+}
+
+.form div {
+  margin-bottom: 20px;
+}
+
+.radioLabel {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.radio {
+  cursor: pointer;
+}
+
+.reviews {
+  margin-top: 50px;
+}
+
+.reviews div div {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.comentarioIndividual {
+  background-color: white;
+  font-size: 20px;
+  margin: 10px 50px;
+  padding-left: 30px;
+}
+
+.comentario {
+  color: #94979d;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.email {
+  font-weight: 700;
+  margin-right: 20px;
+  padding-left: 10px;
+}
+
+.nota {
+  color: red;
+  font-size: 14px;
+}
+
+.contAv {
+  background-color: #b0b3bb;
 }

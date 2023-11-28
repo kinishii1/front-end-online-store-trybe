@@ -29,6 +29,9 @@
 }
 
 .produtos ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-top: 50px;
 }
 
@@ -71,4 +74,30 @@
   height: 35px;
   line-height: 16.4px;
   padding: 10px;
+  width: 280px;
+}
+
+.buscaVazia {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 auto;
+}
+
+.buscaVazia h3 {
+  color: #31c28d;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 5.5%;
+  line-height: 30.75px;
+  margin-top: 300px;
+  text-align: center;
+  width: 350px;
+}
+
+.buscaVazia p {
+  color: #94979d;
+  font-size: 20px;
+  line-height: 20.5px;
 }

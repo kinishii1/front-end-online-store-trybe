@@ -161,7 +161,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
             Pesquisa
           </button>
         </form>
-        {searched && (
+        {searched ? (
           <div className={ styles.produtos }>
             <select onChange={ handleOrderBy }>
               <option value="">Ordenar por preço</option>
@@ -170,7 +170,7 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
               <option value="alpha">Ordem alfabética</option>
             </select>
             {productsList.length > 0 ? (
-              <ul className="product-list">
+              <ul className={ styles.productList }>
                 {productsList.map((product: any) => {
                   const isInCart = cartList.some(
                     (item) => item.id === product.id,
@@ -225,7 +225,13 @@ function Home({ cartCount, updateCartCount }: HomeProps) {
               </p>
             )}
           </div>
-        )}
+        )
+          : (
+            <div className={ styles.buscaVazia }>
+              <h3>VOCÊ AINDA NÃO REALIZOU UMA BUSCA</h3>
+              <p>Digite algum Termo de pesquisa ou escolha uma categoria</p>
+            </div>
+          )}
       </main>
     </div>
   );
