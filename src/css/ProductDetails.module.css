@@ -1,0 +1,16 @@
+.title {
+  color: #000;
+text-align: center;
+font-family: Epilogue;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.image {
+  width: 278.304px;
+  height: 364.835px; 
+  margin: 0 auto;
+  object-fit: contain;
+}

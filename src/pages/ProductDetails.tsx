@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
 import '../css/CartIcon.css';
-import cartIcon from '../assets/cart-icon.svg';
 import Header from './Header';
+import styles from '../css/ProductDetails.module.css'
 
 function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
@@ -92,9 +92,10 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   return (
     <>
       <Header cartCount={ cartCount } />
-      <h1 data-testid="product-detail-name">{productDetails.title}</h1>
+      <h1 className={styles.title} data-testid="product-detail-name">{productDetails.title}</h1>
       <img
-        src={ productDetails.image }
+        className={styles.image}
+        src={ productDetails.thumbnail }
         alt={ productDetails.title }
         data-testid="product-detail-image"
       />

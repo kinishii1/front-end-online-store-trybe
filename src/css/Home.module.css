@@ -3,67 +3,29 @@
 }
 
 .categorias {
-  width: 310px;
   box-shadow: 3px 3px 6px black;
   padding: 36px;
+  width: 310px;
 }
 
 .categorias button {
-  background-color: #31C28D;
-  color: white;
-  padding: 10px 20px;
+  background-color: #31c28d;
   border: none;
+  color: white;
+  cursor: pointer;
   margin: 0 auto;
-  cursor: pointer;
-}
-
-.search{
-  height: 35px; 
-  width: 238px;
-  border: 1px solid black;
-  padding: 10px;
-  line-height: 16.4px;
-  font-weight: 400;
-  font-size: 14px;
-  color: #B0B3BB;
-  background-image: url(/src/assets/SearchSVG.svg);
-  background-repeat: no-repeat;
-  background-position-y: center;
-  background-position-x: 95%;
-}
-
-.radioCategory input{
-   display: none;
-}
-
-.radioCategory input:checked + label {
-  color: #003BE5;
-  font-weight: bold;
-}
-
-.radioCategory {
-  color: #444955;
-  padding-bottom: 15px;
-}
-
-.radioCategory label {
-  cursor: pointer;
-}
-
-.radioCategory:first-of-type {
-  border-top: 2px solid #B0B3BB;
-  padding-top: 20px;
+  padding: 10px 20px;
 }
 
 .produtos select {
+  background-color: none;
+  border: 1px solid #444955;
+  color: #444955;
+  font-size: 16px;
+  margin: 15px;
+  padding: 10px;
   position: absolute;
   right: 0px;
-  background-color: none;
-  padding: 10px;
-  margin: 15px;
-  font-size: 16px;
-  color: #444955;
-  border: 1px solid #444955;
 }
 
 .produtos ul {
@@ -72,4 +34,41 @@
 
 .produtos ul img {
   height: 100%;
+}
+
+.radioCategory {
+  color: #444955;
+  padding-bottom: 15px;
+}
+
+.radioCategory:first-of-type {
+  border-top: 2px solid #b0b3bb;
+  padding-top: 20px;
+}
+
+.radioCategory input {
+  display: none;
+}
+
+.radioCategory input:checked + label {
+  color: #003be5;
+  font-weight: bold;
+}
+
+.radioCategory label {
+  cursor: pointer;
+}
+
+.search {
+  background-image: url(/src/assets/SearchSVG.svg);
+  background-position-x: 95%;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  border: 1px solid black;
+  color: #b0b3bb;
+  font-size: 14px;
+  font-weight: 400;
+  height: 35px;
+  line-height: 16.4px;
+  padding: 10px;
 }
