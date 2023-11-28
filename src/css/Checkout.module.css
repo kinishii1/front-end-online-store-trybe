@@ -39,7 +39,7 @@
   width: 80%;
 }
 
-.cart_item h1 , .cart_item span {
+.cart_item h1, .cart_item span {
   color: #444955;
   font-size: 20px;
   font-style: normal;
@@ -71,7 +71,7 @@
   width: 50%;
 }
 
-.form h1 , .payment h3 {
+.form h1, .payment h3 {
   color: black;
   font-size: 30px;
   font-weight: 700;
