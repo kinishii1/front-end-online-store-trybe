@@ -25,7 +25,7 @@
   margin: 15px;
   padding: 10px;
   position: absolute;
-  right: 0px;
+  right: 0;
 }
 
 .produtos ul {
@@ -50,17 +50,17 @@
   display: none;
 }
 
-.radioCategory input:checked + label {
-  color: #003be5;
-  font-weight: bold;
-}
-
 .radioCategory label {
   cursor: pointer;
 }
 
+.radioCategory input:checked + label {
+  color: #003be5;
+  font-weight: 700;
+}
+
 .search {
-  background-image: url(/src/assets/SearchSVG.svg);
+  background-image: url('/src/assets/SearchSVG.svg');
   background-position-x: 95%;
   background-position-y: center;
   background-repeat: no-repeat;

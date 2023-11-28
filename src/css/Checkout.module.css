@@ -18,7 +18,7 @@
 .btn {
   background: #2fc18c;
   border-radius: 5px;
-  color: #fff;
+  color: white;
   cursor: pointer;
   font-size: 30px;
   font-weight: 700;
@@ -39,10 +39,9 @@
   width: 80%;
 }
 
-.cart_item h1,
+.cart_item h1, 
 .cart_item span {
   color: #444955;
-  font-family: Epilogue;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -64,18 +63,18 @@
 
 .form {
   align-items: space-around;
-  background: #fff;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: white;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   padding: 20px;
   width: 50%;
-  margin-top: 20px;
 }
 
-.form h1,
+.form h1, 
 .payment h3 {
-  color: #000;
+  color: black;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
@@ -105,8 +104,8 @@
 
 .itens {
   align-items: center;
-  background: #fff; 
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: white;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -116,7 +115,7 @@
 }
 
 .itens h1 {
-  color: #000;
+  color: black;
   font-size: 30px;
   font-weight: 700;
   text-align: center;
