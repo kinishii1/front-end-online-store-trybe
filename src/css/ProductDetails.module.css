@@ -1,10 +1,10 @@
 .back {
   align-items: center;
-  background-color: unset;
   align-self: flex-start;
+  background-color: unset;
   border: none;
-  display: flex;
   cursor: pointer;
+  display: flex;
 }
 
 .back img {
@@ -54,8 +54,8 @@
   box-shadow: 0 4px 15px 0 #b0b3bb;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
   height: 510px;
+  justify-content: space-evenly;
   width: 488px;
 }
 
@@ -81,8 +81,8 @@
   color: white;
   cursor: pointer;
   font-size: 30px;
-  font-weight: 700;
   border: 1px solid white;
+  font-weight: 700;
   padding: 20px;
   text-align: center;
   width: 50%;
@@ -98,10 +98,10 @@
   align-items: center;
   background-color: white;
   border-top: 50px solid #b0b3bb;
-  margin: 10px 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin: 10px 50px;
   padding-bottom: 30px;
 }
 
