@@ -1,10 +1,10 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
 import '../css/CartIcon.css';
-import cartIcon from '../assets/cart-icon.svg';
 import Header from './Header';
+import styles from '../css/ProductDetails.module.css';
 
 function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
@@ -18,7 +18,6 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
     rating: 0,
     review: '',
   });
-  const [bounce, setBounce] = useState(false);
 
   useEffect(() => {
     if (productId) {
@@ -84,17 +83,20 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const handleAddInCart = (product: ProductType) => {
     addToCart(product);
     updateCartCount();
-
-    setBounce(true);
-    setTimeout(() => setBounce(false), 500);
   };
 
   return (
     <>
       <Header cartCount={ cartCount } />
-      <h1 data-testid="product-detail-name">{productDetails.title}</h1>
+      <h1
+        className={ styles.title }
+        data-testid="product-detail-name"
+      >
+        {productDetails.title}
+      </h1>
       <img
-        src={ productDetails.image }
+        className={ styles.image }
+        src={ productDetails.thumbnail }
         alt={ productDetails.title }
         data-testid="product-detail-image"
       />

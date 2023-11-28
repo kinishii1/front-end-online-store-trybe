@@ -15,6 +15,8 @@ export type CheckoutFormType = {
   cpf: string;
   phone: string;
   cep: string;
+  complemento: string;
+  number: string;
   address: string;
   payment: string;
 };

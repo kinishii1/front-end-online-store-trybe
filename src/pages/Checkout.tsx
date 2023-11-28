@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckoutFormType, ProductType } from '../types';
 import Header from './Header';
+import backIcon from '../assets/back.svg';
+import styles from '../css/Checkout.module.css';
+
+import PaymentMethods from '../components/PaymentMethods';
+import CheckoutListItens from '../components/CheckoutListItens';
+import FormInputs from '../components/FormInputs';
 
 type CheckoutProps = {
   cartCount: number;
@@ -14,6 +20,8 @@ function Checkout({ cartCount }: CheckoutProps) {
     cpf: '',
     phone: '',
     cep: '',
+    number: '',
+    complemento: '',
     address: '',
     payment: '',
   });
@@ -53,160 +61,32 @@ function Checkout({ cartCount }: CheckoutProps) {
   return (
     <>
       <Header cartCount={ cartCount } />
-      <section>
-        <h1>Review Your Products</h1>
-        {cartList.map(({ title, thumbnail, price, id }) => (
-          <div key={ id }>
-            <img src={ thumbnail } alt={ title } />
-            <span>{title}</span>
-            <span>{price}</span>
-          </div>
-        ))}
+      <section className={ styles.back }>
+        <img src={ backIcon } alt="Back icon" />
+        <p>Voltar</p>
       </section>
-      <form onSubmit={ handleSubmit }>
-        <div>
-          <label htmlFor="fullname">Nome Completo:</label>
-          <input
-            name="fullname"
-            type="text"
-            id="fullname"
-            data-testid="checkout-fullname"
-            value={ campos.fullname }
-            onChange={ handleChange }
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            name="email"
-            type="email"
-            id="email"
-            data-testid="checkout-email"
-            value={ campos.email }
-            onChange={ handleChange }
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="cpf">CPF:</label>
-          <input
-            name="cpf"
-            type="text"
-            id="cpf"
-            data-testid="checkout-cpf"
-            value={ campos.cpf }
-            onChange={ handleChange }
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="phone">Telefone:</label>
-          <input
-            name="phone"
-            type="text"
-            id="phone"
-            data-testid="checkout-phone"
-            value={ campos.phone }
-            onChange={ handleChange }
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="cep">CEP:</label>
-          <input
-            name="cep"
-            type="text"
-            id="cep"
-            data-testid="checkout-cep"
-            value={ campos.cep }
-            onChange={ handleChange }
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="address">Endereço:</label>
-          <input
-            name="address"
-            type="text"
-            id="address"
-            data-testid="checkout-address"
-            value={ campos.address }
-            onChange={ handleChange }
-            required
-          />
-        </div>
-
-        <div>
-          <h3>Método de pagamento:</h3>
-          <div>
-            <input
-              type="radio"
-              id="ticket"
-              name="payment"
-              data-testid="ticket-payment"
-              value="Boleto"
-              checked={ campos.payment === 'Boleto' }
-              onChange={ handleChange }
-              required
-            />
-            <label htmlFor="ticket">Boleto</label>
+      <div className={ styles.container }>
+        <CheckoutListItens cartList={ cartList } />
+        <form className={ styles.form } onSubmit={ handleSubmit }>
+          <h1>Informações do comprador</h1>
+          <FormInputs campos={ campos } handleChange={ handleChange } />
+          <div className={ styles.payment }>
+            <h3>Método de pagamento:</h3>
+            <PaymentMethods campos={ campos } handleChange={ handleChange } />
+            <hr />
           </div>
-          <div>
-            <input
-              type="radio"
-              id="visa"
-              name="payment"
-              data-testid="visa-payment"
-              value="Visa"
-              checked={ campos.payment === 'Visa' }
-              onChange={ handleChange }
-              required
-            />
-            <label htmlFor="visa">Visa</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="master"
-              name="payment"
-              data-testid="master-payment"
-              value="MasterCard"
-              checked={ campos.payment === 'MasterCard' }
-              onChange={ handleChange }
-              required
-            />
-            <label htmlFor="master">MasterCard</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="elo"
-              name="payment"
-              data-testid="elo-payment"
-              value="Elo"
-              checked={ campos.payment === 'Elo' }
-              onChange={ handleChange }
-              required
-            />
-            <label htmlFor="elo">Elo</label>
-          </div>
-        </div>
-        { showError && <div data-testid="error-msg">Campos inválidos</div> }
-        <button
-          onClick={ handleSubmit }
-          type="submit"
-          data-testid="checkout-btn"
-        >
-          Enviar
-        </button>
-      </form>
-      <form onSubmit={ handleSubmit } />
+          {showError && <div data-testid="error-msg">Campos inválidos</div>}
+          <button
+            onClick={ handleSubmit }
+            type="submit"
+            data-testid="checkout-btn"
+            className={ styles.btn }
+          >
+            Comprar
+          </button>
+        </form>
+        <form onSubmit={ handleSubmit } />
+      </div>
     </>
   );
 }
