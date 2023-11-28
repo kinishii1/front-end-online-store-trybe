@@ -1,9 +1,9 @@
 .back {
-  background-color: unset;
   align-items: center;
+  background-color: unset;
   align-self: flex-start;
-  display: flex;
   border: none;
+  display: flex;
   cursor: pointer;
 }
 
@@ -49,14 +49,14 @@
 }
 
 .blockleft div {
-  background-color: white;
   align-items: center;
+  background-color: white;
   box-shadow: 0 4px 15px 0 #b0b3bb;
-  height: 510px;
-  width: 488px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  height: 510px;
+  width: 488px;
 }
 
 .blockright {
@@ -82,27 +82,27 @@
   cursor: pointer;
   font-size: 30px;
   font-weight: 700;
-  padding: 20px;
   border: 1px solid white;
+  padding: 20px;
   text-align: center;
   width: 50%;
 }
 
 .form p {
   font-size: 30px;
-  text-align: center;
   font-weight: 700;
+  text-align: center;
 }
 
 .form {
-  background-color: white;
   align-items: center;
+  background-color: white;
   border-top: 50px solid #b0b3bb;
   margin: 10px 50px;
-  padding-bottom: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding-bottom: 30px;
 }
 
 .emailInput {
@@ -111,8 +111,8 @@
 }
 
 .textAreaInput {
-  margin-bottom: 20px;
   height: 150px;
+  margin-bottom: 20px;
   width: 400px;
 }
 
