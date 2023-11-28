@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CheckoutFormType, ProductType } from '../types';
 import Header from './Header';
 import backIcon from '../assets/back.svg';
