@@ -1,10 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ReviewType, ProductType, HomeProps } from '../types';
 import { addToCart, getProductDetails } from '../services/api';
 import '../css/CartIcon.css';
 import Header from './Header';
 import styles from '../css/ProductDetails.module.css';
+import backIcon from '../assets/back.svg';
 
 function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
   const { productId } = useParams<{ productId: string }>();
@@ -84,83 +85,138 @@ function ProductDetails({ cartCount, updateCartCount }: HomeProps) {
     addToCart(product);
     updateCartCount();
   };
-
+  const navigate = useNavigate();
   return (
     <>
       <Header cartCount={ cartCount } />
-      <h1
-        className={ styles.title }
-        data-testid="product-detail-name"
-      >
-        {productDetails.title}
-      </h1>
-      <img
-        className={ styles.image }
-        src={ productDetails.thumbnail }
-        alt={ productDetails.title }
-        data-testid="product-detail-image"
-      />
-      <p data-testid="product-detail-price">{productDetails.price}</p>
-      {productDetails.shipping?.free_shipping && (
-        <p data-testid="free-shipping">Frete grátis</p>
-      )}
-      <button
-        data-testid="product-detail-add-to-cart"
-        onClick={ () => handleAddInCart(productDetails) }
-      >
-        Adicionar ao carrinho
-      </button>
-      <form onSubmit={ handleSubmit }>
-        <label htmlFor="email">
-          <input
-            data-testid="product-detail-email"
-            type="text"
-            name="email"
-            value={ form.email }
-            id="email"
-            onChange={ handleInputChange }
-          />
-        </label>
+      <div className={ styles.containerPai }>
+        <section className={ styles.blockleft }>
+          <button
+            className={ styles.back }
+            onClick={ () => {
+              navigate('/');
+            } }
+          >
+            <img src={ backIcon } alt="Back icon" />
+            <p>Voltar</p>
+          </button>
+          <div>
+            <h1
+              className={ styles.title }
+              data-testid="product-detail-name"
+            >
+              {productDetails.title}
+            </h1>
+            <img
+              className={ styles.image }
+              src={ productDetails.thumbnail }
+              alt={ productDetails.title }
+              data-testid="product-detail-image"
+            />
+          </div>
 
-        <label htmlFor="review">
-          <textarea
-            data-testid="product-detail-evaluation"
-            name="review"
-            value={ form.review }
-            id="review"
-            onChange={ handleInputChange }
-          />
-        </label>
+        </section>
+        <section className={ styles.blockright }>
+          <p data-testid="product-detail-price">
+            <span>R$ </span>
+            { productDetails.price }
+          </p>
+          {productDetails.shipping?.free_shipping && (
+            <p data-testid="free-shipping">Frete grátis</p>
+          )}
+          <button
+            className={ styles.btn }
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => handleAddInCart(productDetails) }
+          >
+            Adicionar ao carrinho
+          </button>
 
-        {ratings.map((value) => (
-          <label htmlFor="" key={ value }>
-            {value}
+        </section>
+      </div>
+      <div className={ styles.contAv }>
+
+        <form className={ styles.form } onSubmit={ handleSubmit }>
+          <p>Avaliações</p>
+          <label htmlFor="email">
             <input
-              data-testid={ `${value}-rating` }
-              type="radio"
-              name="rating"
-              value={ value }
+              className={ styles.emailInput }
+              data-testid="product-detail-email"
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={ form.email }
+              id="email"
               onChange={ handleInputChange }
-              checked={ form.rating === value }
             />
           </label>
-        ))}
 
-        {error && <p data-testid="error-msg">{error}</p>}
-
-        <button type="submit" data-testid="submit-review-btn">
-          Avaliar
-        </button>
-      </form>
-
-      <div className="reviews">
-        {reviews.map((review, index) => (
-          <div key={ index }>
-            <p data-testid="review-card-email">{review.email}</p>
-            <p data-testid="review-card-rating">{review.rating}</p>
-            <p data-testid="review-card-evaluation">{review.review}</p>
+          <label htmlFor="review">
+            <textarea
+              className={ styles.textAreaInput }
+              data-testid="product-detail-evaluation"
+              name="review"
+              placeholder="Mensagem...!"
+              value={ form.review }
+              id="review"
+              onChange={ handleInputChange }
+            />
+          </label>
+          <div>
+            Nota
+            {ratings.map((value) => (
+              <label className={ styles.radioLabel } htmlFor="" key={ value }>
+                {value}
+                <input
+                  className={ styles.radio }
+                  data-testid={ `${value}-rating` }
+                  type="radio"
+                  name="rating"
+                  value={ value }
+                  onChange={ handleInputChange }
+                  checked={ form.rating === value }
+                />
+              </label>
+            ))}
           </div>
-        ))}
+
+          {error && <p data-testid="error-msg">{error}</p>}
+
+          <button
+            className={ styles.btn }
+            type="submit"
+            data-testid="submit-review-btn"
+          >
+            Avaliar
+          </button>
+        </form>
+
+        <div className={ styles.reviews }>
+          {reviews.map((review, index) => (
+            <div className={ styles.comentarioIndividual } key={ index }>
+              <div>
+                <p
+                  className={ styles.email }
+                  data-testid="review-card-email"
+                >
+                  {review.email}
+                </p>
+                <p
+                  className={ styles.nota }
+                  data-testid="review-card-rating"
+                >
+                  {review.rating}
+                </p>
+              </div>
+              <p
+                className={ styles.comentario }
+                data-testid="review-card-evaluation"
+              >
+                {review.review}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
