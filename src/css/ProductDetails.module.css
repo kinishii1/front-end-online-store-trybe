@@ -1,8 +1,8 @@
 .back {
+  background-color: unset;
   align-items: center;
   align-self: flex-start;
   display: flex;
-  background-color: unset;
   border: none;
   cursor: pointer;
 }
@@ -50,10 +50,10 @@
 
 .blockleft div {
   background-color: white;
+  align-items: center;
+  box-shadow: 0 4px 15px 0 #b0b3bb;
   height: 510px;
   width: 488px;
-  box-shadow: 0px 4px 15px 0 #b0b3bb;
-  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -83,23 +83,23 @@
   font-size: 30px;
   font-weight: 700;
   padding: 20px;
-  text-align: center;
   border: 1px solid white;
+  text-align: center;
   width: 50%;
 }
 
 .form p {
-  text-align: center;
   font-size: 30px;
+  text-align: center;
   font-weight: 700;
 }
 
 .form {
   background-color: white;
+  align-items: center;
   border-top: 50px solid #b0b3bb;
   margin: 10px 50px;
   padding-bottom: 30px;
-  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -111,9 +111,9 @@
 }
 
 .textAreaInput {
+  margin-bottom: 20px;
   height: 150px;
   width: 400px;
-  margin-bottom: 20px;
 }
 
 .form div {
@@ -144,7 +144,6 @@
   font-size: 20px;
   margin: 10px 50px;
   padding-left: 30px;
-  margin-bottom: 10px;
 }
 
 .comentario {
