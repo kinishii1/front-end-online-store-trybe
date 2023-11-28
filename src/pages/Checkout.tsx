@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckoutFormType, ProductType } from '../types';
 import Header from './Header';
-import backIcon from '../assets/back.svg';
 import styles from '../css/Checkout.module.css';
 
 import PaymentMethods from '../components/PaymentMethods';
 import CheckoutListItens from '../components/CheckoutListItens';
 import FormInputs from '../components/FormInputs';
+import BackIcon from '../components/BackIcon';
 
 type CheckoutProps = {
   cartCount: number;
@@ -61,10 +61,7 @@ function Checkout({ cartCount }: CheckoutProps) {
   return (
     <>
       <Header cartCount={ cartCount } />
-      <section className={ styles.back }>
-        <img src={ backIcon } alt="Back icon" />
-        <p>Voltar</p>
-      </section>
+      <BackIcon />
       <div className={ styles.container }>
         <CheckoutListItens cartList={ cartList } />
         <form className={ styles.form } onSubmit={ handleSubmit }>
