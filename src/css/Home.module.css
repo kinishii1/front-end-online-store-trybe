@@ -29,10 +29,10 @@
 }
 
 .produtos ul {
-  margin-top: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 50px;
 }
 
 .produtos ul img {
@@ -86,7 +86,7 @@
 }
 
 .buscaVazia h3 {
-  color: #31C28D;
+  color: #31c28d;
   font-weight: 600;
   font-size: 30px;
   letter-spacing: 5.5%;
@@ -97,8 +97,7 @@
 }
 
 .buscaVazia p {
-  color: #94979D;
+  color: #94979d;
   font-size: 20px;
   line-height: 20.5px;
 }
-

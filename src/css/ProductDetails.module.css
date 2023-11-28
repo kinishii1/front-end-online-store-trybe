@@ -36,8 +36,8 @@
 }
 
 .containerPai {
-  display: flex; 
-  padding-bottom: 50px; 
+  display: flex;
+  padding-bottom: 50px;
 }
 
 .blockleft {
@@ -51,8 +51,8 @@
 .blockleft div {
   width: 488px;
   height: 510px;
-  background-color: #FFFFFF;
-  box-shadow: 0px 4px 15px 0 #B0B3BB;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 15px 0 #b0b3bb;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,7 +73,7 @@
 }
 
 .blockright span {
-  color: #B0B3BB;
+  color: #b0b3bb;
 }
 
 .btn {
@@ -88,7 +88,7 @@
   border: 1px solid white;
 }
 
-.form p{
+.form p {
   text-align: center;
   font-size: 30px;
   font-weight: bold;
@@ -98,7 +98,7 @@
   background-color: white;
   padding-bottom: 30px;
   margin: 10px 50px;
-  border-top: 50px solid #B0B3BB;
+  border-top: 50px solid #b0b3bb;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,8 +150,7 @@
 .comentario {
   font-size: 16px;
   padding: 20px;
-  color: #94979D;
-  
+  color: #94979d;
 }
 
 .email {
@@ -166,5 +165,5 @@
 }
 
 .contAv {
-  background-color: #B0B3BB;
+  background-color: #b0b3bb;
 }
