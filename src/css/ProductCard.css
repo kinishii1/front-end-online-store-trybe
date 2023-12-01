@@ -14,11 +14,6 @@
   width: 279.605px;
 }
 
-.product-card img { 
-  width: auto;
-  height: auto;
-}
-
 .product-card__button {
   background: #31c28d;
   border: none;
