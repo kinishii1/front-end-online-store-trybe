@@ -15,7 +15,8 @@
 }
 
 .product-card img { 
-  width: auto 
+  width: auto;
+  height: auto;
 }
 
 .product-card__button {
